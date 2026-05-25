@@ -8,7 +8,15 @@ import numpy as np
 
 
 
+# y_pred = [
+#     [0.1, 0.7, 0.2],
+#     [0.8, 0.1, 0.1],
+#     [0.2, 0.3, 0.5]
+# ]
 
+# y_true = [1, 0, 2]
+# 숫자 하나 반환
+# 
 def cross_entropy_loss(y_pred, y_true):
     """
     Cross Entropy Error (배치 평균).
@@ -17,6 +25,7 @@ def cross_entropy_loss(y_pred, y_true):
     """
     # TODO: 정답 클래스 확률의 log 값을 이용해 batch 평균 cross entropy를 계산하세요.
     # 힌트: np.clip으로 log(0)을 피하고, np.arange(batch_size)로 정답 위치를 고릅니다.
+   
 
     batch_size = y_pred.shape[0]
     return -np.sum(np.log(np.clip(y_pred[np.arange(batch_size), y_true], 1e-7 , 1))/ batch_size)

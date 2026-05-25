@@ -9,7 +9,9 @@
 
 import numpy as np
 
-
+# 활성화 함수 사용하는 이유?
+# 신경망에 비선형성을 넣어 주기 위해 사용한다
+# 활성화 함수가 없으면 여러 Affine 계층을 쌓아도 하나의 선형 변환으로 합쳐지기 때문에 깊은 신경망이 복잡한 패턴을 표현할수 X
 class ReLU:
     """
     ReLU(Rectified Linear Unit) 활성화 함수.

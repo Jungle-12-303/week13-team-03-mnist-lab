@@ -23,6 +23,10 @@ class Affine:
         """가중치 W와 편향 b를 외부 params dict와 같은 배열 객체로 공유합니다."""
         self.W = W
         self.b = b
+        self.x = None
+        
+        self.dW = None
+        self.db = None
 
     def forward(self, x):
         """
@@ -33,10 +37,10 @@ class Affine:
             (batch_size, output_dim)
         """
         # TODO: backward에서 사용할 입력 x를 저장하고 x @ W + b를 반환하세요.
-        # self.x = x
+        self.x = x
 
-        # result = np.dot(x, self.W) + self.b
-        # return result
+        result = np.dot(x, self.W) + self.b
+        return result
         raise NotImplementedError("Affine.forward를 구현하세요.")
 
     def backward(self, dout):
@@ -53,10 +57,19 @@ class Affine:
         # TODO: self.dW, self.db, dx를 계산하세요.
         # 힌트: dW = x.T @ dout, db = batch 방향 합, dx = dout @ W.T
         
-        # self.dW = np.dot(self.x.T, dout)
-        # db = 
-        # dx = np.dot(dout, self.W.T)
+        #db(기울기) : 편향 b가 Loss에 얼마나 영향을 줬는지
+        self.db = np.sum(dout, axis = 0)
 
+        # dW : 가중치가 Loss에 얼마나 영향을 줬는지
+        #dW(기울기)는 원래와 같은 행 수와 열 수를 가져야 한다
+        self.dW = np.dot(self.x.T, dout)
+
+        #dx(기울기)는 원래와 같은 행 수와 열 수를 가져야 한다
+        dx = np.dot(dout, self.W.T)
+        
+        # dx만 앞 층으로 반환하는 이유?
+        # 우선 db나 dW는 그 층에 해당하는 편향과 가중치이다
+        # 앞 층이 알아야 하는 건 x가 Loss에 얼마나 영향을 줬는지이다
         return dx
         raise NotImplementedError("Affine.backward를 구현하세요.")
 

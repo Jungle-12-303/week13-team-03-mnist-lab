@@ -96,6 +96,9 @@ class Softmax:
         """
         # TODO: 수치 안정성을 위해 row별 max를 뺀 뒤 softmax 확률을 계산하세요.
         # 힌트: np.max(..., axis=1, keepdims=True), np.exp, np.sum을 사용합니다.
+        # axis = 1
+        #keepdims = True : 결과 shape를 (N,)이 아니라 (N,1)로 유지한다
+
         # 3
         # 6
         c = np.max(x, axis = 1, keepdims = True)

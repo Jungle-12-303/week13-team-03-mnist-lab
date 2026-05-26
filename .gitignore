@@ -19,6 +19,7 @@ build/
 .venv/
 venv/
 env/
+Miniforge3.sh
 
 # pytest
 .pytest_cache/

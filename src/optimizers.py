@@ -24,35 +24,6 @@ class SGD:
             params[key] -= self.lr * grads[key]
 
 
-class AdaGrad:
-    """
-    AdaGrad Optimizer.
-
-    각 파라미터마다 gradient 제곱합을 누적해서, 자주 크게 업데이트된 파라미터는
-    점점 작게 움직이도록 학습률을 자동 조절합니다.
-    """
-
-    def __init__(self, lr=0.01, eps=1e-7):
-        """
-        Args:
-            lr: AdaGrad 업데이트의 기본 학습률
-            eps: 0으로 나누는 것을 막기 위해 분모에 더하는 작은 값
-        """
-        self.lr = lr
-        self.eps = eps
-        self.h = {}
-
-    def update(self, params, grads):
-        """AdaGrad 공식에 따라 params dict의 모든 파라미터를 갱신합니다."""
-        for key in params.keys():
-            if key not in self.h:
-                self.h[key] = np.zeros_like(params[key])
-
-            grad = grads[key]
-            self.h[key] += grad ** 2
-            params[key] -= self.lr * grad / (np.sqrt(self.h[key]) + self.eps)
-
-
 class Adam:
     """
     Adam Optimizer.

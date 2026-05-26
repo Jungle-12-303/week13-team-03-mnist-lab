@@ -7,7 +7,7 @@ import numpy as np
 from losses import cross_entropy_loss
 
 
-def train(model, optimizer, x_train, y_train, epochs=20, batch_size=128):
+def train(model, optimizer, x_train, y_train, epochs=15, batch_size=128):
     """
     미니배치 학습 루프.
 

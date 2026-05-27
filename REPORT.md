@@ -258,6 +258,8 @@ Test accuracy에서 뒤에 둔 구조가 0.15%p 높게 나온 것은 약 10,000�
 
 ![누적 학습 시간 대비 validation accuracy](mnist_epoch_time_vs_accuracy.png)
 
+참고로 `Adam, lr=0.0005, dropout=0.1, hidden=512 -> 256` 후보는 중간에 validation accuracy가 일시적으로 낮아지는 구간이 있었다. 특히 epoch 9의 98.17%에서 epoch 10의 97.76%로 떨어졌지만, train loss는 계속 감소했고 이후 다시 98%대로 회복되었다. 따라서 이는 모델이 학습에 실패한 현상이라기보다, 큰 모델과 비교적 약한 dropout 조건에서 mini-batch 순서와 dropout mask에 따라 validation 경계 샘플 일부가 흔들린 결과로 해석할 수 있다.
+
 최종적으로는 `Adam, lr=0.001, dropout=0.2, hidden=256 -> 128` 모델을 선택했다. 이 모델은 epoch 20 기준 validation accuracy가 98.41%로 전체 후보 중 가장 높았고, test accuracy도 98.27%로 충분히 높았다. 또한 98% validation accuracy에 epoch 6, 11.8초 만에 도달했다. 기존 기본 구조인 `512 -> 256` 모델의 537,354개 파라미터와 비교하면, 선택 모델은 235,914개로 파라미터 수가 약 56.1% 줄었다.
 
 선택 모델의 epoch별 변화는 다음과 같다.
